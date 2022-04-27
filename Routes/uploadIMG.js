@@ -13,7 +13,7 @@ cloudinary.config({
 
 router.post("/upload-img",auth,async(req,res)=>{
     try {
-        console.log(req.files);
+       
         if(!req.files || Object.keys(req.files).length===0) return res.status(400).json({msg:"No files found"});
         const file = req.files.img;
         if(file.size > 1024*1024){
