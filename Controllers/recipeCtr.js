@@ -13,12 +13,12 @@ const getUserRecipes=async(req,res)=>{
 
 const createRecipe=async(req,res)=>{
     try {
-        const {title,ingrediant,recipe,image,userId}=req.body;
-        if(!title|| !ingrediant|| !recipe|| !image|| !userId) return res.stauts(400).json({msg:"Missing feilds!"})
+        const {title,ingredient,recipe,image,userId}=req.body;
+        if(!title|| !ingredient|| !recipe|| !image) return res.status(400).json({msg:"Missing feilds!"})
        
         const newRecipe=await new Recipes({
             title,
-            ingrediant,
+            ingredient,
             recipe,
             image,
             userId:req.user._id

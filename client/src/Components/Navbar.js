@@ -1,7 +1,20 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 function Navbar() {
+const navigate = useNavigate();
+const [isLogged,setIslogged]=useState(false);
+
+
+useEffect(()=>{
+  setIslogged(localStorage.getItem('token'))
+},[]);
+
+  const handleLogout=()=>{
+    setIslogged(false);
+    localStorage.clear();
+    navigate('/login');
+  }
   return (
    
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -12,20 +25,27 @@ function Navbar() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-               <NavLink className="nav-link"  to='/'>Add Recipe</NavLink>
+           {isLogged &&<> <li className="nav-item">
+               <NavLink className="nav-link"  to='add-recipe'>Add Recipe</NavLink>
               </li> 
               <li className="nav-item">
-               <NavLink className="nav-link"  to='/recipes'>Recipes</NavLink>
+               <NavLink className="nav-link"  to='/'>Recipes</NavLink>
               </li>
+              </>
+              }
+          
+            </ul>
+              {isLogged ?
+              <div className="nav-item ms-auto">
+              <button className='btn btn-danger ' onClick={handleLogout}>Logout</button>
+               </div>:<ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
               <NavLink  className="nav-link"to='/login'>Login</NavLink>
               </li>
               <li className="nav-item">
               <NavLink  className="nav-link" to='/register'>Register</NavLink>
               </li>
-          
-            </ul>
+              </ul>}
             
           </div>
         </div>
