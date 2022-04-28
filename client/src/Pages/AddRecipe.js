@@ -45,11 +45,11 @@ const AddRecipe = () => {
       {
         try {
           setLoading(true);
-           await axios.post('/api/recipes/',{...recipe,image:img},
+          let res= await axios.post('/api/recipes/',{...recipe,image:img},
           {headers:{authorization:localStorage.getItem('token')}});
           toast.success('Recipe Added');
           
-         setRecipes(...Recipes,recipe)
+         setRecipes([...Recipes,res.data.newRecipe])
           e.target.reset();
           setImg(false);
           setLoading(false);

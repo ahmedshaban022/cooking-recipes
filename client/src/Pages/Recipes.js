@@ -12,14 +12,19 @@ const Recipes = () => {
   const navigate=useNavigate();
   const state=useContext(GlobalState);
   const [Recipes,setRecipes]=state.recipesAPI;
-  const setCallBack=state.recipesAPI[2];
+  const [callBack,setCallBack]=state.callBack;
+  
+  
 
 
 
   useEffect(() => {
     let token=localStorage.getItem('token')
     if(!token){return navigate('/login');}  
-    if(Recipes.length===0){setCallBack(true)}
+    if(Recipes.length===0){
+      setCallBack(!callBack);
+     
+    }
     
   }, []);
 

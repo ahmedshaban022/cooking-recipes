@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import RecipesAPI from '../apis/RecipesAPI';
 import EditRecipe from '../Components/EditRecipe';
 import Loader from '../Components/loader/Loader';
 
@@ -13,6 +12,7 @@ const RecipeDetails = () => {
   const navigate=useNavigate();
   const state=useContext(GlobalState);
   const [Recipes,setRecipes]=state.recipesAPI;
+  const [callBack,setCallBack]=state.callBack;
   const param=useParams();
   const [recipe,setRecipe]=useState({});
 
@@ -29,8 +29,11 @@ const RecipeDetails = () => {
   
   useEffect(() => {
     if(!token)navigate('/login'); 
-    
     getRecipeFromParam();
+    if(Recipes.length===0){
+     
+    navigate('/')
+    }
     
   }, []);
 

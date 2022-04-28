@@ -39,7 +39,7 @@ const EditRecipe = (props) => {
       
       
       const handleSubmit =async (e)=>{
-          console.log(recipe)
+          
         e.preventDefault();
         if(recipe.title && recipe.ingredient&& recipe.recipe)
         {
@@ -47,19 +47,20 @@ const EditRecipe = (props) => {
           {
             try {
               setLoading(true);
-               await axios.put(`/api/recipes/${recipe._id}`,{...recipe,image:img},
+              let res= await axios.put(`/api/recipes/${recipe._id}`,{...recipe,image:img},
               {headers:{authorization:localStorage.getItem('token')}});
               toast.success('Recipe Saved');
               
               setImg(false);
               setLoading(false);
-                props.setParentRecipe(recipe);
+              
+                props.setParentRecipe(res.data.updatedRecipe);
               let newRecipes=Recipes.filter(item=>item);
               newRecipes.forEach((item,index)=>{
                   if(item._id===recipe._id)
                   {
-                    newRecipes[index]=recipe;
-                   console.log(item,recipe,index) ;  
+                    newRecipes[index]=res.data.updatedRecipe;
+                     
                   }
               });
               setRecipes([...newRecipes]);
