@@ -19,7 +19,7 @@ useEffect(()=>{
    
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">AIM-TECH</a>
+        <NavLink className="nav-link"  to='/'><span className='text-danger fw-bold fs-5'>AIM-TECH</span></NavLink>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon" />
           </button>

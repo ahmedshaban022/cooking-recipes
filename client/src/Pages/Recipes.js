@@ -1,32 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+
 import {toast} from 'react-toastify';
-import { setRecipesAction } from '../store/actions/recipesActions';
+
 import Recipe from '../Components/Recipe';
+import { GlobalState } from '../GlobalState';
 
 const Recipes = () => {
   
   const navigate=useNavigate();
-  const recipes=useSelector(state=>state.recipes);
-  const [Recipes,setRecipes]=useState([])
+  const state=useContext(GlobalState);
+  const [Recipes,setRecipes]=state.recipesAPI;
+  
 
 
-  const dispatch=useDispatch();
   useEffect(() => {
     let token=localStorage.getItem('token')
     if(!token){return navigate('/login');}  
-   
-   
 
-      axios.get('api/recipes',{headers:{authorization:token}}).then(res=>{
-        dispatch(setRecipesAction(res.data.recipes));
-        setRecipes(res.data.recipes);
-      }).catch(err=>{
-        return toast.error(err.response.data.msg)
-
-      })
     
   }, []);
 

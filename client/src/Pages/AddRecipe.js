@@ -1,10 +1,10 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Loader from '../Components/loader/Loader';
-import {useDispatch, useSelector} from 'react-redux';
-import{setRecipesAction} from '../store/actions/recipesActions';
+import { GlobalState } from '../GlobalState';
+
 
 
 const AddRecipe = () => {
@@ -14,8 +14,9 @@ const AddRecipe = () => {
   const [img,setImg]=useState(false);
   const [loading,setLoading]=useState(false);
   const [token,setToken]=useState(localStorage.getItem('token'));
-  const recipes=useSelector(state=>state.recipes);
-  const dispatch = useDispatch();
+  const state=useContext(GlobalState);
+  const [Recipes,setRecipes]=state.recipesAPI;
+
 
   useEffect(() => {
     
@@ -36,7 +37,7 @@ const AddRecipe = () => {
     setRecipe({...recipe,[target.name]:target.value});
   }
   const handleSubmit =async (e)=>{
-    console.log('ss')
+    
     e.preventDefault();
     if(recipe.title && recipe.ingredient&& recipe.recipe)
     {
@@ -44,13 +45,13 @@ const AddRecipe = () => {
       {
         try {
           setLoading(true);
-          let res = await axios.post('/api/recipes/',{...recipe,image:img},
+           await axios.post('/api/recipes/',{...recipe,image:img},
           {headers:{authorization:localStorage.getItem('token')}});
           toast.success('Recipe Added');
           
-          dispatch(setRecipesAction([...recipes,res.data.newRecipe]));
+         setRecipes(...Recipes,recipe)
           e.target.reset();
-          setImg(false)
+          setImg(false);
           setLoading(false);
           
           
@@ -66,7 +67,7 @@ const AddRecipe = () => {
       toast.warning('missing feilds');
       setLoading(false);
     }
-    console.log(e)
+    
    
     setLoading(false);
   }
