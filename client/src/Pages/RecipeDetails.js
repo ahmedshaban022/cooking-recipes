@@ -2,6 +2,10 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import RecipesAPI from '../apis/RecipesAPI';
+import EditRecipe from '../Components/EditRecipe';
+import Loader from '../Components/loader/Loader';
+
 import { GlobalState } from '../GlobalState';
 
 
@@ -11,17 +15,21 @@ const RecipeDetails = () => {
   const [Recipes,setRecipes]=state.recipesAPI;
   const param=useParams();
   const [recipe,setRecipe]=useState({});
-  
+
+
+
+  const token=localStorage.getItem('token');
   const getRecipeFromParam=(item)=>{
     for(let i=0; i<Recipes.length;i++){  
       Recipes[i]._id===param.id && setRecipe({...Recipes[i]});  
-      console.log(Recipes[i])   
+       
     };
   }
-
-
+  
+  
   useEffect(() => {
-    if(!localStorage.getItem('token'))navigate('/login'); 
+    if(!token)navigate('/login'); 
+    
     getRecipeFromParam();
     
   }, []);
@@ -46,6 +54,10 @@ const RecipeDetails = () => {
     } catch (err) {
         toast.error(err.response.data.msg)
     }
+
+
+
+    
 }
   return (
    recipe.image ?
@@ -74,7 +86,7 @@ const RecipeDetails = () => {
               
 
 
-              <>
+              
   {/* Button trigger modal */}
   <button
     type="button"
@@ -109,11 +121,8 @@ const RecipeDetails = () => {
           />
         </div>
         <div className="modal-body">
-        
-
-        
-        
-        
+           
+      {  recipe ? <EditRecipe recipe={recipe} setParentRecipe={setRecipe}/> :<h3>No Recipe Selected</h3>}
         </div>
         <div className="modal-footer">
           <button
@@ -123,14 +132,12 @@ const RecipeDetails = () => {
           >
             Close
           </button>
-          <button type="button" className="btn btn-success">
-            Save
-          </button>
+         
         </div>
       </div>
     </div>
   </div>
-</>
+
 
 
 
@@ -139,7 +146,12 @@ const RecipeDetails = () => {
         </div>
       </div>
       </div>
-    </div>:<h2>No Recipe Selected</h2>
+    </div>:
+    <div className=' row '>
+      <h2>No Recipe Selected</h2>
+    <div className='col-12 d-flex justify-content-center'>
+    <Loader/></div>
+    </div>
   )
 }
 

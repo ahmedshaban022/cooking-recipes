@@ -36,16 +36,16 @@ const createRecipe=async(req,res)=>{
 const editRecipe=async(req,res)=>{
     try {
         const id=req.params.id;
-        const {title,ingrediant,recipe,image,userId}=req.body;
-        if(!title|| !ingrediant|| !recipe|| !image|| !userId) return res.stauts(400).json({msg:"Missing feilds!"})
+        const {title,ingredient,recipe,image}=req.body;
+        if(!title|| !ingredient|| !recipe|| !image) return res.status(400).json({msg:"Missing feilds!"})
         
         const oldRecipe=await Recipes.findById(id);
-        if(!oldRecipe)return res.stauts(400).json({msg:"Recipe dosent exist"})
+        if(!oldRecipe)return res.status(400).json({msg:"Recipe dosent exist"})
         if(oldRecipe.userId==req.user._id)
          {
             const updatedRecipe=await Recipes.findByIdAndUpdate({_id:id},{
                 title,
-                ingrediant,
+                ingredient,
                 recipe,
                 image,
                 userId:req.user._id

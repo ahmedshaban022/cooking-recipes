@@ -13,8 +13,10 @@ import { useEffect, useState } from 'react';
 import store from './store/store';
 import RecipeDetails from './Pages/RecipeDetails';
 import { ContextProvider } from './GlobalState';
+import RecipesAPI from './apis/RecipesAPI';
 function App() {
-  
+
+
 
   return (
     // <Provider store={store}>

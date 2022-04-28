@@ -2,6 +2,7 @@ import axios from 'axios'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import Loader from './loader/Loader'
 
 const Recipe = ({Recipes ,setRecipes}) => {
 
@@ -24,7 +25,7 @@ const Recipe = ({Recipes ,setRecipes}) => {
   return (
       <div    className='row '>
       {
-          Recipes&& Recipes.map((recipe,index)=>(
+          Recipes? Recipes.map((recipe,index)=>(
            <div key={index} className='col-md-4'>
         <div  className="card" style={{ width: "18rem" }}>
         <img src={recipe.image.url} className="card-img-top" alt={recipe.title} />
@@ -37,7 +38,10 @@ const Recipe = ({Recipes ,setRecipes}) => {
         </div>
       </div>
   </div>
-       ))
+       )):<div className=' row '>
+       <div className='col-12 d-flex justify-content-center'>
+       <Loader/></div>
+       </div>
     }
     </div>
 

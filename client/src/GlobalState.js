@@ -1,9 +1,8 @@
-import React, { createContext } from 'react'
+import React, { createContext, useEffect } from 'react'
 import RecipesAPI from './apis/RecipesAPI';
 
 export const GlobalState=createContext();
 export const ContextProvider = ({children}) => {
-    ;
 
 const state={
     recipesAPI:RecipesAPI(),

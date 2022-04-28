@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 
 const RecipesAPI = () => {
     const [recipes,setRecipes]=useState([]);
+    const [callBak,setCallBack]=useState(false);
     const token=localStorage.getItem('token');
 
     const getRecipes=async()=>{
@@ -16,13 +17,14 @@ const RecipesAPI = () => {
             
         })
     }
+
     useEffect(()=>{
     if(!token){return false}
     getRecipes();
-});
+  },[callBak]);
 
   return (
-    [recipes,setRecipes]
+    [recipes,setRecipes,setCallBack]
   )
 }
 

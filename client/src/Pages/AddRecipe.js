@@ -76,7 +76,7 @@ const handleUploadImg = async (e)=>{
   const file = e.target.files[0];
   if(!file) return toast.error("File not exist");
   if(file.size > 1024 *1024) return toast.error("File size is larger than 1 MB");
-  if(file.type !== 'image/jpeg' && img.type !== 'image/png') return toast.error("File format is incorrect");
+  if(file.type !== 'image/jpeg' && file.type !== 'image/png') return toast.error("File format is incorrect");
   try {
     
     let formData = new FormData();
@@ -116,9 +116,10 @@ const handleUploadImg = async (e)=>{
 
               {
                loading ?
-                <div className='ms-5'>
-                <Loader/>
-                </div>
+               <div className=' row '>
+               <div className='col-12 d-flex justify-content-center'>
+               <Loader/></div>
+               </div>
                 :img&&<div className=' '>
                   <button className='btn btn-danger mb-2 rounded-circle ' onClick={removeImage}>&times;</button>
                 <img style={{width:'400px',height:'400px'}} className='   rounded-circle' src={img.url}/>
