@@ -122,7 +122,9 @@ const handleUploadImg = async (e)=>{
                <Loader/></div>
                </div>
                 :img&&<div className=' '>
-                  <button className='btn btn-danger mb-2 rounded-circle ' onClick={removeImage}>&times;</button>
+                 <div>
+                 <button className='btn btn-danger mb-2 rounded-circle ' onClick={removeImage}>&times;</button>
+                 </div>
                 <img style={{width:'400px',height:'400px'}} className='   rounded-circle' src={img.url}/>
               </div>
                  

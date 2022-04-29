@@ -137,18 +137,20 @@ const EditRecipe = (props) => {
         <label htmlFor="floatingInput">Recipe</label>
       </div>
 
-            {
-             loading ?
-             <div className=' row '>
-             <div className='col-12 d-flex justify-content-center'>
-             <Loader/></div>
-             </div>
-              :<div className=''>
-                <button className='btn btn-danger mb-2 rounded-circle ' onClick={removeImage}>&times;</button>
-              <img style={{width:'400px',height:'400px'}} className='   rounded-circle' src={img.url}/>
-            </div>
-               
-            }
+      {
+               loading ?
+               <div className=' row '>
+               <div className='col-12 d-flex justify-content-center'>
+               <Loader/></div>
+               </div>
+                :img&&<div className=' '>
+                 <div>
+                 <button className='btn btn-danger mb-2 rounded-circle ' onClick={removeImage}>&times;</button>
+                 </div>
+                <img style={{width:'400px',height:'400px'}} className='   rounded-circle' src={img.url}/>
+              </div>
+                 
+              }
       <div>
       <label htmlFor="formFileLg" className="form-label">Recipe dish photo</label>
       <input className="form-control form-control-lg" name='dish-image' onChange={handleUploadImg} id="formFileLg" type="file" accept='image/png, image/jpeg'/>
