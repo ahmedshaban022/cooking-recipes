@@ -4,6 +4,11 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
+    "server":"nodemond server.js",
+    "client":"cd client && npm run start",
+    "server-install":"npm install",
+    "heroku-postbuild":"cd client && npm install && npm run build",
     "dev": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -4,6 +4,7 @@ const cors=require('cors');
 const dotenv=require('dotenv');
 const fileUpload= require('express-fileupload');
 const connectToDB=require('./DB');
+const path=require('path');
 dotenv.config();
 connectToDB()
 
@@ -16,7 +17,10 @@ app.use('/api/users',require('./Routes/userRouter'));
 app.use('/api/image',require('./Routes/uploadIMG'));
 
 
-
+app.use(express.static('client/build'));
+app.get('*',(req,res)=>{
+    res.sendFile(path.join(__dirname,'client','build','index.html'))
+})
 
 
 const PORT=process.env.PORT || 5000;
