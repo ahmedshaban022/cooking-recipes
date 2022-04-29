@@ -15,7 +15,7 @@ const EditRecipe = (props) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const state = useContext(GlobalState);
   const [Recipes, setRecipes] = state.recipesAPI;
-  const [fields, setFields] = useState([...recipe.ingredient]);
+  const [fields, setFields] = useState([...recipe.ingredient]); // for dynamic inputs
 
   useEffect(() => {
     if (!token) return navigate("/login");
