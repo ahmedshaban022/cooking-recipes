@@ -31,7 +31,7 @@ const Recipe = ({ Recipes, setRecipes }) => {
       {Recipes ? (
         Recipes.map((recipe, index) => (
           <div key={index} className="col-md-4">
-            <div className="card" style={{ width: "18rem" }}>
+            <div className="card bg-light shadow" style={{ width: "18rem" }}>
               <img
                 src={recipe.image.url}
                 className="card-img-top"
