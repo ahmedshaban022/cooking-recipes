@@ -1,47 +1,43 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import {toast} from 'react-toastify';
-import Loader from '../Components/loader/Loader';
+import { toast } from "react-toastify";
+import Loader from "../Components/loader/Loader";
 
-import Recipe from '../Components/Recipe';
-import { GlobalState } from '../GlobalState';
+import Recipe from "../Components/Recipe";
+import { GlobalState } from "../GlobalState";
 
 const Recipes = () => {
-  
-  const navigate=useNavigate();
-  const state=useContext(GlobalState);
-  const [Recipes,setRecipes]=state.recipesAPI;
-  const [callBack,setCallBack]=state.callBack;
-  
-  
-
-
+  const navigate = useNavigate();
+  const state = useContext(GlobalState);
+  const [Recipes, setRecipes] = state.recipesAPI;
+  const [callBack, setCallBack] = state.callBack;
 
   useEffect(() => {
-    let token=localStorage.getItem('token')
-    if(!token){return navigate('/login');}  
-    if(Recipes.length===0){
-      setCallBack(!callBack);
-     
+    let token = localStorage.getItem("token");
+    if (!token) {
+      return navigate("/login");
     }
-    
+    if (Recipes.length === 0) {
+      setCallBack(!callBack);
+    }
   }, []);
 
-
-
   return (
-    <div className='container'>
-<h4 className='text-muted '>{Recipes.length} Recipes</h4>
-    
-    {Recipes.length>0?<Recipe Recipes={Recipes} setRecipes={setRecipes}/>:
-    <div className=' row '>
-      <div className='col-12 d-flex justify-content-center'>
-      <Loader/></div>
-      </div>}
-     
-    </div>
-  )
-}
+    <div className="container">
+      <h4 className="text-muted ">{Recipes.length} Recipes</h4>
 
-export default Recipes
+      {Recipes.length > 0 ? (
+        <Recipe Recipes={Recipes} setRecipes={setRecipes} />
+      ) : (
+        <div className=" row ">
+          <div className="col-12 d-flex justify-content-center">
+            <Loader />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Recipes;
