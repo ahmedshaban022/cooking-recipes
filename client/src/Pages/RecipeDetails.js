@@ -76,7 +76,15 @@ const RecipeDetails = () => {
         <div>
        <div className='my-5' >
        <h4 className='text-muted'>Ingredient</h4>
-          <p className='m-2'>{recipe.ingredient}</p>
+          <div>
+            {
+              recipe.ingredient.map((item,index)=>(
+               
+                <div key={index}>{item}</div> 
+                
+              ))
+            }
+          </div>
        </div>
         <div className='mt-3'>
         <h4 className='text-muted'>Recipe</h4>

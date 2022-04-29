@@ -40,3 +40,23 @@
   font-weight: bold;
   color: rgb(185, 168, 14) !important ;
 }
+/* 
+body{
+  background-image: url('../backgeounds/cooking-wall4.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size:cover ;
+} */
+
+.card{
+  background-color: rgb(200, 194, 194);
+  min-height: 300px;
+  margin-top: 10px;
+  padding: 3px;
+}
+.card img{
+  max-height: 300px;
+  min-height: 300px;
+  border: 2px solid #fff;
+  
+}

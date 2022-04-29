@@ -13,7 +13,9 @@ const getUserRecipes=async(req,res)=>{
 
 const createRecipe=async(req,res)=>{
     try {
+     
         const {title,ingredient,recipe,image,userId}=req.body;
+    
         if(!title|| !ingredient|| !recipe|| !image) return res.status(400).json({msg:"Missing feilds!"})
        
         const newRecipe=await new Recipes({
@@ -36,6 +38,7 @@ const createRecipe=async(req,res)=>{
 const editRecipe=async(req,res)=>{
     try {
         const id=req.params.id;
+        
         const {title,ingredient,recipe,image}=req.body;
         if(!title|| !ingredient|| !recipe|| !image) return res.status(400).json({msg:"Missing feilds!"})
         

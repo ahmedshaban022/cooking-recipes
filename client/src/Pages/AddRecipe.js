@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import IngrediantsInput from '../Components/IngrediantsInput';
 import Loader from '../Components/loader/Loader';
 import { GlobalState } from '../GlobalState';
 
@@ -16,7 +17,7 @@ const AddRecipe = () => {
   const [token,setToken]=useState(localStorage.getItem('token'));
   const state=useContext(GlobalState);
   const [Recipes,setRecipes]=state.recipesAPI;
-
+  const [fields, setFields]=useState([""]);
 
   useEffect(() => {
     
@@ -39,13 +40,13 @@ const AddRecipe = () => {
   const handleSubmit =async (e)=>{
     
     e.preventDefault();
-    if(recipe.title && recipe.ingredient&& recipe.recipe)
+    if(recipe.title && fields&& recipe.recipe)
     {
       if(img)
       {
         try {
           setLoading(true);
-          let res= await axios.post('/api/recipes/',{...recipe,image:img},
+          let res= await axios.post('/api/recipes/',{...recipe,ingredient:[...fields],image:img},
           {headers:{authorization:localStorage.getItem('token')}});
           toast.success('Recipe Added');
           
@@ -96,21 +97,21 @@ const handleUploadImg = async (e)=>{
   return (
     <div className='container'>
       <h2 className='text-muted'>New Recipe</h2>
-      <div className='m-auto w-50 m-3 p-3 form-control'>
+      <div className='row d-flex justify-content-center m-3 p-3 '>
 
-      <form  onSubmit={handleSubmit}>
+      <form className='  col-sm-12  col-lg-8' onSubmit={handleSubmit}>
 
       <div className="form-floating mb-3">
           <input type="text" name='title' onChange={handleOnChange}  className="form-control" id="floatingInput" placeholder="name@example.com" />
           <label htmlFor="floatingInput">Title</label>
         </div>
 
-      <div className="form-floating">
-        <textarea className="form-control mb-3" name='ingredient' onChange={handleOnChange} placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-        <label htmlFor="floatingTextarea">Ingredient</label>
-      </div>
+        <IngrediantsInput fields={fields} setFields={setFields}/>
+
+
+
         <div className="form-floating mb-3">
-          <input type="text" onChange={handleOnChange} name='recipe' className="form-control" id="floatingInput" placeholder="name@example.com" />
+          <textarea  onChange={handleOnChange} name='recipe' className="form-control" id="floatingInput" placeholder="name@example.com" />
           <label htmlFor="floatingInput">Recipe</label>
         </div>
 
